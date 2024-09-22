@@ -52,11 +52,11 @@ export default function App({ Component, pageProps }) {
       />
       <main className={poppins.className}>
         <Provider store={store}>
-          <Layout>
-            <SocketProvider>
+          <SocketProvider>
+            <Layout>
               <Component {...pageProps} />
-            </SocketProvider>
-          </Layout>
+            </Layout>
+          </SocketProvider>
         </Provider>
       </main>
     </>

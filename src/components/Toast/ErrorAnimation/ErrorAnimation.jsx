@@ -9,7 +9,7 @@ const ErrorAnimation = () => {
         animationData: ErrorJsn,
         rendererSettings: {
             preserveAspectRatio: "xMidYMid slice",
-            scale: 0.05,
+            scale: 1,
         },
     };
     return (

@@ -1,24 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  createSdStatergyAction, getAllSdStatergyAction } from "../actions/strucralSdActions";
-
-
+import { createSdStatergyAction, deleteSdStatergyAction, getAllSdFilterAction, getAllSdStatergyAction, reRunSdStatergyAction } from "../actions/strucralSdActions";
 
 
 const initialState = {
     loading: false,
     statergies: [],
-    eventData: {}
+    filters: [],
+    eventData: {},
+    activeMenu: null
 }
-
-
 
 
 const strucralSdSlice = createSlice({
     name: "stcturalSd",
     initialState,
     reducers: {
-        setEventDataAction: (state, { payload }) => {
-            state.eventData[payload.name] = payload.data;
+        setActiveMenu: (state, { payload }) => {
+            state.activeMenu = payload
         }
     },
     extraReducers: (builder) => {
@@ -34,6 +32,18 @@ const strucralSdSlice = createSlice({
                 state.loading = false;
             })
 
+            // getAllSdFilterAction
+            .addCase(getAllSdFilterAction.pending, (state,) => {
+                state.loading = true;
+            })
+            .addCase(getAllSdFilterAction.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.filters = payload;
+            })
+            .addCase(getAllSdFilterAction.rejected, (state,) => {
+                state.loading = false;
+            })
+
             // createSdStatergyAction
             .addCase(createSdStatergyAction.pending, (state,) => {
                 state.loading = true;
@@ -44,6 +54,28 @@ const strucralSdSlice = createSlice({
             .addCase(createSdStatergyAction.rejected, (state,) => {
                 state.loading = false;
             })
+
+            // deleteSdStatergyAction
+            .addCase(deleteSdStatergyAction.pending, (state,) => {
+                state.loading = true;
+            })
+            .addCase(deleteSdStatergyAction.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(deleteSdStatergyAction.rejected, (state,) => {
+                state.loading = false;
+            })
+
+            // reRunSdStatergyAction
+            .addCase(reRunSdStatergyAction.pending, (state,) => {
+                state.loading = true;
+            })
+            .addCase(reRunSdStatergyAction.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(reRunSdStatergyAction.rejected, (state,) => {
+                state.loading = false;
+            })
     }
 })
 
@@ -51,7 +83,7 @@ const strucralSdSlice = createSlice({
 export const sdReducer = strucralSdSlice.reducer;
 
 export const {
-    setEventDataAction
+    setActiveMenu
 } = strucralSdSlice.actions;
 
 
